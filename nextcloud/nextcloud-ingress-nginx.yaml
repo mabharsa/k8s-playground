@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud-ingress
+  namespace: nextcloud
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/limit-connections: "1"
+    nginx.ingress.kubernetes.io/limit-rps: "1"
+spec:
+  rules:
+  - host: nextcloud.sredevstack.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+             name: nextcloud-ui-svc 
+             port:
+               number: 80
+
+
+#nginx.ingress.kubernetes.io/limit-connections = number of concurrent connections allowed from a single IP address.
+#nginx.ingress.kubernetes.io/limit-rps: number of connections that may be accepted from a given IP each second.
+#If you specify both annotations in a single Ingress rule, limit-rps takes precedence.

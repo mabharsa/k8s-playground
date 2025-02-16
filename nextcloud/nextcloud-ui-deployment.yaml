@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud-frontend
+  namespace: nextcloud
+  labels:
+    app: nextcloud-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      appstack: nextcloud-frontend
+  template:
+    metadata:
+      labels:
+        appstack: nextcloud-frontend
+    spec:
+      containers:
+      - name: nextcloud
+        image: nextcloud:16-apache
+        volumeMounts:
+        - name: server-storage
+          mountPath: /var/www/html
+          subPath: server-data
+      volumes:
+      - name: server-storage
+        persistentVolumeClaim:
+          claimName: nextcloud-shared-storage-claim
+/opt/etherpad-lite

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: white-board-svc
+ namespace: white-board
+spec:
+ type: LoadBalancer
+ ports:
+ - port: 80
+   targetPort: 80
+   protocol: TCP
+ selector:
+   app: white-board

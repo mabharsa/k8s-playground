@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: etherpad
+  name: etherpad
+  namespace: etherpad
+spec:
+  selector:
+    matchLabels:
+      app: etherpad
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: etherpad
+    spec:
+      containers:
+      - image: etherpad/etherpad
+        imagePullPolicy: Always
+        name: etherpad
+        ports:
+        - containerPort: 9001
+        envFrom:
+          - configMapRef:
+              name: etherpad-config

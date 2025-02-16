@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: etherpad-sre
+  namespace: etherpad
+spec:
+  selector:
+    app: etherpad
+  ports:
+    - port: 80
+      targetPort: 9001
+  type: LoadBalancer

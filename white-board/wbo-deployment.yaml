@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: white-board
+  name: wbo
+  namespace: white-board
+spec:
+  selector:
+    matchLabels:
+      app: white-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: white-board
+    spec:
+      volumes:
+      - name: white-board-storage
+        persistentVolumeClaim:
+          claimName: white-board-pvc
+      containers:
+      - image: lovasoa/wbo:latest
+        imagePullPolicy: Always
+        name: wbo
+        volumeMounts:
+          - name: white-board-storage
+            mountPath: "/opt/app/server-data"

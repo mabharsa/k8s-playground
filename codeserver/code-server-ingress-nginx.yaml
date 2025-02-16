@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: code-server-ingress-bmangesh
+  namespace: bmangesh
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: bmangesh-codeserver.sredevstack.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+             name: code-server-svc-bmangesh
+             port:
+               number: 80

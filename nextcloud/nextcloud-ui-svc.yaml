@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: nextcloud-ui-svc
+ namespace: nextcloud
+ labels:
+   app: nextcloud
+spec:
+ type: LoadBalancer
+ ports:
+ - port: 80
+   protocol: TCP
+ selector:
+   appstack: nextcloud-frontend

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: nextcloud-mysql-svc
+   namespace: nextcloud
+   labels:
+      app: nextcloud
+spec:
+   selector:
+      pod-label: nextcloud-mysql
+   ports:
+   - protocol: TCP
+     port: 3306

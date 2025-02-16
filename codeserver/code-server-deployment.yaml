@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: code-server
+  name: code-server
+  namespace: sre-devstack
+spec:
+  selector:
+    matchLabels:
+      app: code-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: code-server
+    spec:
+      volumes:
+      - name: codeserver-storage
+        persistentVolumeClaim:
+          claimName: codeserver-pvc
+      containers:
+      - image: codercom/code-server:latest
+        imagePullPolicy: Always
+        name: code-server
+        env:
+        - name: PASSWORD
+          value: "OpenStack!!"
+        volumeMounts:
+          - name: codeserver-storage
+            mountPath: "/home/coder/data"
